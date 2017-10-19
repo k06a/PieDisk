@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>714</width>
+    <height>434</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(5, 34, 78);</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="SliceWidget" name="slice" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="PieWidget" name="pie" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="pathComponents">
+        <item>
+         <widget class="QComboBox" name="mounts">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: none;</string>
+          </property>
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <property name="maxVisibleItems">
+           <number>15</number>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+          </property>
+          <property name="frame">
+           <bool>true</bool>
+          </property>
+          <item>
+           <property name="text">
+            <string>Macintosh HD</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Share 1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Share 2</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>714</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>PieWidget</class>
+   <extends>QWidget</extends>
+   <header>PieWidget.h</header>
+   <container>1</container>
+   <slots>
+    <signal>mouseDirInfoChanged(QString)</signal>
+    <signal>rootChanged(DirInfo*)</signal>
+    <slot>setRootDirInfo(DirInfo*)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>SliceWidget</class>
+   <extends>QWidget</extends>
+   <header>SliceWidget.h</header>
+   <container>1</container>
+   <slots>
+    <signal>rootChanged(DirInfo*)</signal>
+    <slot>setRootDirInfo(DirInfo*)</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pie</sender>
+   <signal>mouseDirInfoChanged(QString)</signal>
+   <receiver>statusBar</receiver>
+   <slot>showMessage(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>238</x>
+     <y>298</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>235</x>
+     <y>426</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pie</sender>
+   <signal>rootChanged(DirInfo*)</signal>
+   <receiver>slice</receiver>
+   <slot>setRootDirInfo(DirInfo*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>329</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>617</x>
+     <y>296</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pie</sender>
+   <signal>rootChanged(DirInfo*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>pathChanged(DirInfo*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>349</x>
+     <y>162</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>227</x>
+     <y>34</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slice</sender>
+   <signal>rootChanged(DirInfo*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>pathChanged(DirInfo*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>586</x>
+     <y>119</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>32</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slice</sender>
+   <signal>rootChanged(DirInfo*)</signal>
+   <receiver>pie</receiver>
+   <slot>setRootDirInfo(DirInfo*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>612</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>491</x>
+     <y>238</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>rootChanged(DirInfo*)</signal>
+   <receiver>pie</receiver>
+   <slot>setRootDirInfo(DirInfo*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>406</x>
+     <y>62</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>430</x>
+     <y>136</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>rootChanged(DirInfo*)</signal>
+   <receiver>slice</receiver>
+   <slot>setRootDirInfo(DirInfo*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>642</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>641</x>
+     <y>112</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mounts</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>dirSelected(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>134</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>182</x>
+     <y>55</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>rootChanged(DirInfo*)</signal>
+  <slot>pathChanged(DirInfo*)</slot>
+  <slot>dirSelected(QString)</slot>
+ </slots>
+</ui>
